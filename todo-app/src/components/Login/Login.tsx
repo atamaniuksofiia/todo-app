@@ -1,28 +1,24 @@
 import { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebaseApp";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebaseApp";
 import { useNavigate } from "react-router-dom";
 
-const Register = () => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleRegister = async (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      await signInWithEmailAndPassword(auth, email, password);
       navigate("/dashboard");
     } catch (err: unknown) {
       if (err instanceof Error) {
-        if (err instanceof Error) {
-          setError(err.message);
-        } else {
-          setError("An unknown error occurred.");
-        }
+        setError(err.message);
       } else {
         setError("An unknown error occurred.");
       }
@@ -32,10 +28,10 @@ const Register = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <form
-        onSubmit={handleRegister}
+        onSubmit={handleLogin}
         className="bg-white p-6 rounded shadow-md w-full max-w-md"
       >
-        <h2 className="text-2xl font-bold mb-4 text-center">Реєстрація</h2>
+        <h2 className="text-2xl font-bold mb-4 text-center">Вхід</h2>
 
         {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
 
@@ -61,11 +57,11 @@ const Register = () => {
           type="submit"
           className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
         >
-          Зареєструватись
+          Увійти
         </button>
       </form>
     </div>
   );
 };
 
-export default Register;
+export default Login;
