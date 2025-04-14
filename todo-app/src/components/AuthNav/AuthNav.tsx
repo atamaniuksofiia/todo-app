@@ -10,12 +10,6 @@ function AuthNav() {
         >
           Dashboard
         </Link>
-        <Link
-          to="/lists/test"
-          className="font-medium text-gray-800 hover:text-purple-600 transition-colors duration-200"
-        >
-          Test List
-        </Link>
       </div>
 
       <div className="flex gap-4 border-l border-gray-300 pl-4">
